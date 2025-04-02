@@ -1,35 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import PdfDocument from "./PdfDocument";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <h1>Generar PDF en React</h1>
+      <PDFDownloadLink document={<PdfDocument />} fileName="documento.pdf">
+        {({ loading }) => (loading ? "Generando..." : "Descargar PDF")}
+      </PDFDownloadLink>
 
-export default App
+      <h2>Vista Previa:</h2>
+      <PDFViewer style={{ width: "100%", height: "500px" }}>
+        <PdfDocument />
+      </PDFViewer>
+    </div>
+  );
+};
+
+export default App;
